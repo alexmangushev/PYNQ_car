@@ -96,7 +96,30 @@ uart = UartAXI(address)
 # Setup AXI UART register
 uart.setupCtrlReg()
 
-frameMode = VideoMode(1280, 720, 24, 50)
+scaler = overlay.video_scaler_0
+scaler_address = 0x43C00000
+
+# Registers
+CONTROL = 0x00
+IN_WIDTH = 0x10
+IN_HEIGHT = 0x18
+OUT_WIDTH = 0x20
+OUT_HEIGHT = 0x28
+
+AUTO_RESTART = 0x7
+AP_START = 0x0
+
+scaler = MMIO(scaler_address, 0x10000, debug=False)
+
+scaler.write(IN_WIDTH, 1280)
+scaler.write(IN_HEIGHT, 720)
+
+scaler.write(OUT_WIDTH, r_width)
+scaler.write(OUT_HEIGHT, r_height)
+
+scaler.write(CONTROL, 1 << AUTO_RESTART | 1 << AP_START)
+
+frameMode = VideoMode(r_width, r_height, 24, 50)
 vdma = overlay.axi_vdma
 vdma.readchannel.mode = frameMode
 vdma.readchannel.start()
@@ -113,7 +136,7 @@ while(time.time() - start < 25):
     except:
         continue
         
-    image = cv2.resize(image,(r_width,r_height))
+    #image = cv2.resize(image,(r_width,r_height))
         
     # Converting the image to HSV format
     img_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
