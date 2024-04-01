@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER moments
+	OPTION supported_peripherals = (moments);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = moments;
+END DRIVER
