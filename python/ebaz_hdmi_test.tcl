@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# pl_test, rgb2hsv_wrap
+# hsv_mask, pl_test, rgb2hsv_wrap
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -170,6 +170,7 @@ xilinx.com:ip:xlslice:1.0\
 set bCheckModules 1
 if { $bCheckModules == 1 } {
    set list_check_mods "\ 
+hsv_mask\
 pl_test\
 rgb2hsv_wrap\
 "
@@ -337,6 +338,17 @@ proc create_root_design { parentCell } {
    CONFIG.kRstActiveHigh {false} \
  ] $dvi2rgb_0
 
+  # Create instance: hsv_mask_0, and set properties
+  set block_name hsv_mask
+  set block_cell_name hsv_mask_0
+  if { [catch {set hsv_mask_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $hsv_mask_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: pl_test_0, and set properties
   set block_name pl_test
   set block_cell_name pl_test_0
@@ -1218,10 +1230,11 @@ cs#gpio[1]#ale#we_b#data[2]#data[0]#data[1]#cle#re_b#data[4]#data[5]#data[6]#dat
   connect_bd_intf_net -intf_net axi_vdma_M_AXI_S2MM [get_bd_intf_pins axi_interconnect_1/S01_AXI] [get_bd_intf_pins axi_vdma/M_AXI_S2MM]
   connect_bd_intf_net -intf_net axis_dwidth_converter_0_M_AXIS [get_bd_intf_pins axi_vdma/S_AXIS_S2MM] [get_bd_intf_pins axis_dwidth_converter_0/M_AXIS]
   connect_bd_intf_net -intf_net hdmi_in_ddc [get_bd_intf_ports hdmi_in_ddc] [get_bd_intf_pins dvi2rgb_0/DDC]
+  connect_bd_intf_net -intf_net hsv_mask_0_m [get_bd_intf_pins axis_dwidth_converter_0/S_AXIS] [get_bd_intf_pins hsv_mask_0/m]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
   connect_bd_intf_net -intf_net processing_system7_0_MDIO_ETHERNET_0 [get_bd_intf_ports MDIO_ETHERNET_0_0] [get_bd_intf_pins processing_system7_0/MDIO_ETHERNET_0]
-  connect_bd_intf_net -intf_net rgb2hsv_wrap_0_m [get_bd_intf_pins axis_dwidth_converter_0/S_AXIS] [get_bd_intf_pins rgb2hsv_wrap_0/m]
+  connect_bd_intf_net -intf_net rgb2hsv_wrap_0_m [get_bd_intf_pins hsv_mask_0/s] [get_bd_intf_pins rgb2hsv_wrap_0/m]
   connect_bd_intf_net -intf_net v_vid_in_axi4s_0_video_out [get_bd_intf_pins v_vid_in_axi4s_0/video_out] [get_bd_intf_pins video_scaler_0/stream_in]
   connect_bd_intf_net -intf_net video_scaler_0_stream_out [get_bd_intf_pins rgb2hsv_wrap_0/s] [get_bd_intf_pins video_scaler_0/stream_out]
 
@@ -1232,7 +1245,7 @@ cs#gpio[1]#ale#we_b#data[2]#data[0]#data[1]#cle#re_b#data[4]#data[5]#data[6]#dat
   connect_bd_net -net ENET0_GMII_TX_CLK_0_1 [get_bd_ports ENET0_GMII_TX_CLK_0] [get_bd_pins processing_system7_0/ENET0_GMII_TX_CLK]
   connect_bd_net -net In0_0_1 [get_bd_ports enet0_gmii_rxd] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net KEY_1_0_1 [get_bd_ports KEY_1] [get_bd_pins pl_test_0/KEY_1]
-  connect_bd_net -net M00_ACLK_1 [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_intc/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/M02_ACLK] [get_bd_pins axi_interconnect_0/M03_ACLK] [get_bd_pins axi_interconnect_0/M04_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_1/ACLK] [get_bd_pins axi_interconnect_1/M00_ACLK] [get_bd_pins axi_interconnect_1/S00_ACLK] [get_bd_pins axi_interconnect_1/S01_ACLK] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins axi_vdma/m_axi_mm2s_aclk] [get_bd_pins axi_vdma/m_axi_s2mm_aclk] [get_bd_pins axi_vdma/m_axis_mm2s_aclk] [get_bd_pins axi_vdma/s_axi_lite_aclk] [get_bd_pins axi_vdma/s_axis_s2mm_aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins rgb2hsv_wrap_0/clk] [get_bd_pins v_vid_in_axi4s_0/aclk] [get_bd_pins video_scaler_0/ap_clk]
+  connect_bd_net -net M00_ACLK_1 [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_intc/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/M02_ACLK] [get_bd_pins axi_interconnect_0/M03_ACLK] [get_bd_pins axi_interconnect_0/M04_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_1/ACLK] [get_bd_pins axi_interconnect_1/M00_ACLK] [get_bd_pins axi_interconnect_1/S00_ACLK] [get_bd_pins axi_interconnect_1/S01_ACLK] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins axi_vdma/m_axi_mm2s_aclk] [get_bd_pins axi_vdma/m_axi_s2mm_aclk] [get_bd_pins axi_vdma/m_axis_mm2s_aclk] [get_bd_pins axi_vdma/s_axi_lite_aclk] [get_bd_pins axi_vdma/s_axis_s2mm_aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins hsv_mask_0/clk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins rgb2hsv_wrap_0/clk] [get_bd_pins v_vid_in_axi4s_0/aclk] [get_bd_pins video_scaler_0/ap_clk]
   connect_bd_net -net M00_ARESETN_1 [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/M02_ARESETN] [get_bd_pins axi_interconnect_0/M03_ARESETN] [get_bd_pins axi_interconnect_0/M04_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_1/M00_ARESETN] [get_bd_pins axi_interconnect_1/S00_ARESETN] [get_bd_pins axi_interconnect_1/S01_ARESETN] [get_bd_pins axi_uartlite_0/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins video_scaler_0/ap_rst_n]
   connect_bd_net -net axi_gpio_0_gpio_io_o [get_bd_ports LED_1] [get_bd_pins axi_gpio_0/gpio_io_o]
   connect_bd_net -net axi_intc_0_irq [get_bd_pins axi_intc/irq] [get_bd_pins processing_system7_0/IRQ_F2P]
@@ -1247,7 +1260,7 @@ cs#gpio[1]#ale#we_b#data[2]#data[0]#data[1]#cle#re_b#data[4]#data[5]#data[6]#dat
   connect_bd_net -net dvi2rgb_0_vid_pVDE [get_bd_pins dvi2rgb_0/vid_pVDE] [get_bd_pins v_vid_in_axi4s_0/vid_active_video]
   connect_bd_net -net dvi2rgb_0_vid_pVSync [get_bd_pins dvi2rgb_0/vid_pVSync] [get_bd_pins v_vid_in_axi4s_0/vid_vsync]
   connect_bd_net -net pl_test_0_LED_2 [get_bd_ports LED_2] [get_bd_pins pl_test_0/LED_2]
-  connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_intc/s_axi_aresetn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_1/ARESETN] [get_bd_pins axi_vdma/axi_resetn] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins dvi2rgb_0/aRst_n] [get_bd_pins proc_sys_reset_0/interconnect_aresetn] [get_bd_pins rgb2hsv_wrap_0/arstn]
+  connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_intc/s_axi_aresetn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_1/ARESETN] [get_bd_pins axi_vdma/axi_resetn] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins dvi2rgb_0/aRst_n] [get_bd_pins hsv_mask_0/arstn] [get_bd_pins proc_sys_reset_0/interconnect_aresetn] [get_bd_pins rgb2hsv_wrap_0/arstn]
   connect_bd_net -net proc_sys_reset_1_peripheral_reset [get_bd_pins proc_sys_reset_1/peripheral_reset] [get_bd_pins v_vid_in_axi4s_0/vid_io_in_reset]
   connect_bd_net -net processing_system7_0_ENET0_GMII_TXD [get_bd_pins processing_system7_0/ENET0_GMII_TXD] [get_bd_pins xlslice_0/Din]
   connect_bd_net -net processing_system7_0_ENET0_GMII_TX_EN [get_bd_ports ENET0_GMII_TX_EN_0] [get_bd_pins processing_system7_0/ENET0_GMII_TX_EN]
