@@ -51,7 +51,8 @@
       "color_swap_0": "",
       "axi_uartlite_0": "",
       "axis_dwidth_converter_0": "",
-      "video_scaler_0": ""
+      "video_scaler_0": "",
+      "rgb2hsv_wrap_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -3576,6 +3577,194 @@
         "xci_name": "design_top_video_scaler_0_0",
         "xci_path": "ip/design_top_video_scaler_0_0/design_top_video_scaler_0_0.xci",
         "inst_hier_path": "video_scaler_0"
+      },
+      "rgb2hsv_wrap_0": {
+        "vlnv": "xilinx.com:module_ref:rgb2hsv_wrap:1.0",
+        "xci_name": "design_top_rgb2hsv_wrap_0_0",
+        "xci_path": "ip/design_top_rgb2hsv_wrap_0_0/design_top_rgb2hsv_wrap_0_0.xci",
+        "inst_hier_path": "rgb2hsv_wrap_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "rgb2hsv_wrap",
+          "boundary_crc": "0x0"
+        },
+        "interface_ports": {
+          "m": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "3",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_top_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              }
+            },
+            "port_maps": {
+              "TDATA": {
+                "physical_name": "m_tdata",
+                "direction": "O",
+                "left": "23",
+                "right": "0"
+              },
+              "TLAST": {
+                "physical_name": "m_tlast",
+                "direction": "O"
+              },
+              "TUSER": {
+                "physical_name": "m_tuser",
+                "direction": "O"
+              },
+              "TVALID": {
+                "physical_name": "m_tvalid",
+                "direction": "O"
+              },
+              "TREADY": {
+                "physical_name": "m_tready",
+                "direction": "I"
+              }
+            }
+          },
+          "s": {
+            "mode": "Slave",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "3",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_top_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              },
+              "LAYERED_METADATA": {
+                "value": "xilinx.com:interface:datatypes:1.0 {CLK {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}} TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 24} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TDATA_WIDTH 24 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TUSER_WIDTH 1}",
+                "value_src": "ip_prop"
+              }
+            },
+            "port_maps": {
+              "TDATA": {
+                "physical_name": "s_tdata",
+                "direction": "I",
+                "left": "23",
+                "right": "0"
+              },
+              "TLAST": {
+                "physical_name": "s_tlast",
+                "direction": "I"
+              },
+              "TUSER": {
+                "physical_name": "s_tuser",
+                "direction": "I"
+              },
+              "TVALID": {
+                "physical_name": "s_tvalid",
+                "direction": "I"
+              },
+              "TREADY": {
+                "physical_name": "s_tready",
+                "direction": "O"
+              }
+            }
+          }
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_BUSIF": {
+                "value": "m:s",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_top_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "arstn": {
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "const_prop"
+              }
+            }
+          }
+        }
       }
     },
     "interface_nets": {
@@ -3675,6 +3864,12 @@
           "processing_system7_0/MDIO_ETHERNET_0"
         ]
       },
+      "rgb2hsv_wrap_0_m": {
+        "interface_ports": [
+          "rgb2hsv_wrap_0/m",
+          "axis_dwidth_converter_0/S_AXIS"
+        ]
+      },
       "v_vid_in_axi4s_0_video_out": {
         "interface_ports": [
           "v_vid_in_axi4s_0/video_out",
@@ -3684,7 +3879,7 @@
       "video_scaler_0_stream_out": {
         "interface_ports": [
           "video_scaler_0/stream_out",
-          "axis_dwidth_converter_0/S_AXIS"
+          "rgb2hsv_wrap_0/s"
         ]
       }
     },
@@ -3752,7 +3947,8 @@
           "axi_vdma/s_axis_s2mm_aclk",
           "axis_dwidth_converter_0/aclk",
           "axi_interconnect_0/M04_ACLK",
-          "video_scaler_0/ap_clk"
+          "video_scaler_0/ap_clk",
+          "rgb2hsv_wrap_0/clk"
         ]
       },
       "M00_ARESETN_1": {
@@ -3859,7 +4055,8 @@
           "dvi2rgb_0/aRst_n",
           "axi_interconnect_1/ARESETN",
           "axi_intc/s_axi_aresetn",
-          "axis_dwidth_converter_0/aresetn"
+          "axis_dwidth_converter_0/aresetn",
+          "rgb2hsv_wrap_0/arstn"
         ]
       },
       "proc_sys_reset_1_peripheral_reset": {

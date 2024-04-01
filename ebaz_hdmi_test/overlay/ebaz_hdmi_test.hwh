@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar 25 23:56:54 2024" VIVADOVERSION="2022.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Apr  1 17:00:18 2024" VIVADOVERSION="2022.1">
 
   <SYSTEMINFO ARCH="zynq" BOARD="miner.ebang.com.cn:ebaz4205:part0:1.0" DEVICE="7z010" NAME="design_top" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -6877,16 +6877,16 @@
         <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_S_AXIS_TUSER_WIDTH" VALUE="3"/>
         <PARAMETER NAME="C_M_AXIS_TUSER_WIDTH" VALUE="4"/>
-        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000011111111"/>
+        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000010010011"/>
         <PARAMETER NAME="S_TDATA_NUM_BYTES" VALUE="3"/>
         <PARAMETER NAME="M_TDATA_NUM_BYTES" VALUE="4"/>
-        <PARAMETER NAME="TID_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="TDEST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
         <PARAMETER NAME="TUSER_BITS_PER_BYTE" VALUE="1"/>
         <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
         <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
-        <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
-        <PARAMETER NAME="HAS_TKEEP" VALUE="1"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
         <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
         <PARAMETER NAME="HAS_MI_TKEEP" VALUE="1"/>
         <PARAMETER NAME="Component_Name" VALUE="design_top_axis_dwidth_converter_0_0"/>
@@ -6905,47 +6905,27 @@
         </PORT>
         <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TVALID"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="m_tvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TREADY"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="m_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="23" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TDATA"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="s_axis_tstrb" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TSTRB"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="s_axis_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tkeep">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TKEEP"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="m_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_tlast" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tlast">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TLAST"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="s_axis_tid" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TID"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="s_axis_tdest" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tdest">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TDEST"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="m_tlast"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="2" NAME="s_axis_tuser" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tuser">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TUSER"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="m_tuser"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="axi_vdma_s_axis_s2mm_tvalid">
@@ -6963,7 +6943,6 @@
             <CONNECTION INSTANCE="axi_vdma" PORT="s_axis_s2mm_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="m_axis_tstrb" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" LEFT="3" NAME="m_axis_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_vdma_s_axis_s2mm_tkeep">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_vdma" PORT="s_axis_s2mm_tkeep"/>
@@ -6974,8 +6953,6 @@
             <CONNECTION INSTANCE="axi_vdma" PORT="s_axis_s2mm_tlast"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="0" NAME="m_axis_tid" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="O" LEFT="0" NAME="m_axis_tdest" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" LEFT="3" NAME="m_axis_tuser" RIGHT="0" SIGIS="undef" SIGNAME="axi_vdma_s_axis_s2mm_tuser">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_vdma" PORT="s_axis_s2mm_tuser"/>
@@ -6983,39 +6960,35 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="video_scaler_0_stream_out" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="rgb2hsv_wrap_0_m" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="1"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="1"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="3"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_top_processing_system7_0_0_FCLK_CLK0"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="xilinx.com:interface:datatypes:1.0 {CLK {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}} TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 24} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TDATA_WIDTH 24 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TUSER_WIDTH 1}"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
             <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
-            <PORTMAP LOGICAL="TSTRB" PHYSICAL="s_axis_tstrb"/>
-            <PORTMAP LOGICAL="TKEEP" PHYSICAL="s_axis_tkeep"/>
             <PORTMAP LOGICAL="TLAST" PHYSICAL="s_axis_tlast"/>
-            <PORTMAP LOGICAL="TID" PHYSICAL="s_axis_tid"/>
-            <PORTMAP LOGICAL="TDEST" PHYSICAL="s_axis_tdest"/>
             <PORTMAP LOGICAL="TUSER" PHYSICAL="s_axis_tuser"/>
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="axis_dwidth_converter_0_M_AXIS" NAME="M_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="1"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="1"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="4"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="1"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
@@ -7027,11 +7000,8 @@
             <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
             <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
-            <PORTMAP LOGICAL="TSTRB" PHYSICAL="m_axis_tstrb"/>
             <PORTMAP LOGICAL="TKEEP" PHYSICAL="m_axis_tkeep"/>
             <PORTMAP LOGICAL="TLAST" PHYSICAL="m_axis_tlast"/>
-            <PORTMAP LOGICAL="TID" PHYSICAL="m_axis_tid"/>
-            <PORTMAP LOGICAL="TDEST" PHYSICAL="m_axis_tdest"/>
             <PORTMAP LOGICAL="TUSER" PHYSICAL="m_axis_tuser"/>
           </PORTMAPS>
         </BUSINTERFACE>
@@ -7292,6 +7262,7 @@
             <CONNECTION INSTANCE="axi_interconnect_1" PORT="ARESETN"/>
             <CONNECTION INSTANCE="axi_intc" PORT="s_axi_aresetn"/>
             <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="arstn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" POLARITY="ACTIVE_LOW" RIGHT="0" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
@@ -8337,7 +8308,7 @@
         </PORT>
         <PORT DIR="I" NAME="ENET0_GMII_COL" SIGIS="undef"/>
         <PORT DIR="I" NAME="ENET0_GMII_CRS" SIGIS="undef"/>
-        <PORT DIR="I" NAME="ENET0_GMII_RX_CLK" SIGIS="clk" SIGNAME="External_Ports_ENET0_GMII_RX_CLK_0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="ENET0_GMII_RX_CLK" SIGIS="clk" SIGNAME="External_Ports_ENET0_GMII_RX_CLK_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="ENET0_GMII_RX_CLK_0"/>
           </CONNECTIONS>
@@ -8348,7 +8319,7 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="ENET0_GMII_RX_ER" SIGIS="undef"/>
-        <PORT DIR="I" NAME="ENET0_GMII_TX_CLK" SIGIS="clk" SIGNAME="External_Ports_ENET0_GMII_TX_CLK_0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="ENET0_GMII_TX_CLK" SIGIS="clk" SIGNAME="External_Ports_ENET0_GMII_TX_CLK_0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="ENET0_GMII_TX_CLK_0"/>
           </CONNECTIONS>
@@ -8792,6 +8763,7 @@
             <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="aclk"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M04_ACLK"/>
             <CONNECTION INSTANCE="video_scaler_0" PORT="ap_clk"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="200000000" DIR="O" NAME="FCLK_CLK2" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK2">
@@ -9151,6 +9123,121 @@
         <PERIPHERAL INSTANCE="axi_vdma"/>
         <PERIPHERAL INSTANCE="video_scaler_0"/>
       </PERIPHERALS>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/rgb2hsv_wrap_0" HWVERSION="1.0" INSTANCE="rgb2hsv_wrap_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="rgb2hsv_wrap" VLNV="xilinx.com:module_ref:rgb2hsv_wrap:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="design_top_rgb2hsv_wrap_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="arstn" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="proc_sys_reset_0_interconnect_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="interconnect_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="23" NAME="s_tdata" RIGHT="0" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TDATA"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_tlast" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TLAST"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_tready" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TREADY"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_tuser" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tuser">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TUSER"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_tvalid" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="video_scaler_0" PORT="stream_out_TVALID"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="23" NAME="m_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_tlast" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_tready" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_tuser" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tuser">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tuser"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_tvalid" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="rgb2hsv_wrap_0_m" NAME="m" TYPE="MASTER" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="1"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_top_processing_system7_0_0_FCLK_CLK0"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_tdata"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="m_tlast"/>
+            <PORTMAP LOGICAL="TUSER" PHYSICAL="m_tuser"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="video_scaler_0_stream_out" NAME="s" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="1"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_top_processing_system7_0_0_FCLK_CLK0"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="xilinx.com:interface:datatypes:1.0 {CLK {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}} TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 24} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TDATA_WIDTH 24 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TUSER_WIDTH 1}"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_tdata"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="s_tlast"/>
+            <PORTMAP LOGICAL="TUSER" PHYSICAL="s_tuser"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
     </MODULE>
     <MODULE COREREVISION="1" FULLNAME="/v_vid_in_axi4s_0" HWVERSION="5.0" INSTANCE="v_vid_in_axi4s_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="v_vid_in_axi4s" VLNV="xilinx.com:ip:v_vid_in_axi4s:5.0">
       <DOCUMENTS>
@@ -9724,51 +9811,35 @@
         </PORT>
         <PORT DIR="I" LEFT="0" NAME="stream_in_TID" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="stream_in_TDEST" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="O" NAME="stream_out_TVALID" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tvalid">
+        <PORT DIR="O" NAME="stream_out_TVALID" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tvalid"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="s_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="stream_out_TREADY" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tready">
+        <PORT DIR="I" NAME="stream_out_TREADY" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tready"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="s_tready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="23" NAME="stream_out_TDATA" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tdata">
+        <PORT DIR="O" LEFT="23" NAME="stream_out_TDATA" RIGHT="0" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tdata"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="s_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="stream_out_TKEEP" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tkeep">
+        <PORT DIR="O" LEFT="2" NAME="stream_out_TKEEP" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="2" NAME="stream_out_TSTRB" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="0" NAME="stream_out_TUSER" RIGHT="0" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tuser">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tkeep"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="s_tuser"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="stream_out_TSTRB" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tstrb">
+        <PORT DIR="O" LEFT="0" NAME="stream_out_TLAST" RIGHT="0" SIGIS="undef" SIGNAME="rgb2hsv_wrap_0_s_tlast">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tstrb"/>
+            <CONNECTION INSTANCE="rgb2hsv_wrap_0" PORT="s_tlast"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="0" NAME="stream_out_TUSER" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tuser">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tuser"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="0" NAME="stream_out_TLAST" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tlast">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tlast"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="0" NAME="stream_out_TID" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="0" NAME="stream_out_TDEST" RIGHT="0" SIGIS="undef" SIGNAME="axis_dwidth_converter_0_s_axis_tdest">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_dwidth_converter_0" PORT="s_axis_tdest"/>
-          </CONNECTIONS>
-        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="stream_out_TID" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="0" NAME="stream_out_TDEST" RIGHT="0" SIGIS="undef"/>
       </PORTS>
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="axi_interconnect_0_M04_AXI" DATAWIDTH="32" NAME="s_axi_ctrl" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
@@ -9850,7 +9921,7 @@
             <PORTMAP LOGICAL="TDEST" PHYSICAL="stream_in_TDEST"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="video_scaler_0_stream_out" NAME="stream_out" TYPE="MASTER" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="video_scaler_0_stream_out" NAME="stream_out" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="1"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="1"/>
