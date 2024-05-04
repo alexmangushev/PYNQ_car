@@ -84,9 +84,9 @@
 		input wire  S_AXI_RREADY,
 		
 		// AXI4Stream sink: Clock
-		input wire  S_AXIS_ACLK,
+		//input wire  S_AXIS_ACLK,
 		// AXI4Stream sink: Reset
-		input wire  S_AXIS_ARESETN,
+		//input wire  S_AXIS_ARESETN,
 		// Ready to accept data in
 		output wire  S_AXIS_TREADY,
 		// Data in

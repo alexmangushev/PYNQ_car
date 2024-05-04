@@ -47,8 +47,8 @@
 		input wire  s00_axi_rready,
 
 		// Ports of Axi Slave Bus Interface S00_AXIS
-		input wire  s00_axis_aclk,
-		input wire  s00_axis_aresetn,
+		//input wire  s00_axis_aclk,
+		//input wire  s00_axis_aresetn,
 		output wire  s00_axis_tready,
 		input wire [C_S00_AXIS_TDATA_WIDTH-1 : 0] s00_axis_tdata,
 		input wire [(C_S00_AXIS_TDATA_WIDTH/8)-1 : 0] s00_axis_tstrb,
@@ -83,8 +83,8 @@
 		.S_AXI_RVALID(s00_axi_rvalid),
 		.S_AXI_RREADY(s00_axi_rready),
 		
-		.S_AXIS_ACLK(s00_axis_aclk),
-		.S_AXIS_ARESETN(s00_axis_aresetn),
+		//.S_AXIS_ACLK(s00_axis_aclk),
+		//.S_AXIS_ARESETN(s00_axis_aresetn),
 		.S_AXIS_TREADY(s00_axis_tready),
 		.S_AXIS_TDATA(s00_axis_tdata),
 		.S_AXIS_TSTRB(s00_axis_tstrb),

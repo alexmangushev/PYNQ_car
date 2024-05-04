@@ -32,12 +32,12 @@ logic   [7:0]   V;
 
 assign m_tdata = {V, S, H};
 
-localparam XLEN = 17;
-localparam STAGE_LIST = 32'b0000_0000_0000_0001_0101_0101_0101_0101; //32'h0101_0101;
+localparam XLEN = 16;
+localparam STAGE_LIST = 32'b0000_0000_0000_0000_0101_0101_0101_0101; //32'h0101_0101;
 
 assign s_tready = ~(m_tvalid & ~m_tready);
 
-parameter PIPELINE_DIV_CNT = 9;
+parameter PIPELINE_DIV_CNT = 8;
 parameter PIPELINE_STAGE_CNT = PIPELINE_DIV_CNT + 1;
 
 // Pipeline for AXI-S video interface
@@ -51,7 +51,7 @@ logic [7:0] cmax_pipe[0:PIPELINE_STAGE_CNT - 1];
 
 logic [PIPELINE_STAGE_CNT - 1 : 0] eq_pipe;
 
-logic [16:0] denum_pipe[0:PIPELINE_DIV_CNT];
+logic [15:0] denum_pipe;
 
 logic s_tvalid_reg;
 
@@ -80,15 +80,15 @@ logic [7:0] B_R;
 logic [7:0] R_G; 
 
 // denum for H
-wire [16:0] denum = cmax - cmin; //
+wire [15:0] denum = cmax - cmin; //
 
 // -----------------Second stage----------------
 
-wire [16:0] num1 = 8'd60 * G_B; //
-wire [16:0] num2 = 8'd60 * B_R; //
-wire [16:0] num3 = 8'd60 * R_G; //
+wire [15:0] num1 = 8'd60 * G_B; //
+wire [15:0] num2 = 8'd60 * B_R; //
+wire [15:0] num3 = 8'd60 * R_G; //
 
-wire [16:0] nums = 9'd255 * denum_pipe[0]; //
+wire [15:0] nums = (denum_pipe << 8) - denum_pipe;//8'd255 * denum_pipe; //
 
 // -----------------Fifth stage----------------
 
@@ -149,7 +149,7 @@ always_ff @(posedge clk or negedge arstn)
 
 always_ff @(posedge clk) begin
     eq_pipe     <= { eq_pipe[PIPELINE_STAGE_CNT - 2 : 0], eq};
-    //denum_pipe  <= denum;
+    denum_pipe  <= denum;
 
     G_B_sign_pipe    <= {G_B_sign_pipe[PIPELINE_STAGE_CNT - 1 : 0], ~(G >= B)}; 
     B_R_sign_pipe    <= {B_R_sign_pipe[PIPELINE_STAGE_CNT - 1 : 0], ~(B >= R)}; 
@@ -173,11 +173,11 @@ always_ff @(posedge clk) begin
             cmax_pipe[i] <= cmax_pipe[i-1];
         end
 
-    for (int i = 0; i <= PIPELINE_DIV_CNT; i++)
+    /*for (int i = 0; i <= PIPELINE_DIV_CNT; i++)
         if (i == 0)
             denum_pipe[i] <= denum;
         else
-            denum_pipe[i] <= denum_pipe[i-1];
+            denum_pipe[i] <= denum_pipe[i-1];*/
 end
 
 assign m_tlast     = m_tlast_pipe[PIPELINE_STAGE_CNT];
@@ -212,7 +212,7 @@ divfunc
     .rst          ( ~arstn          ),
     
     .a            ( num1            ),
-    .b            ( denum_pipe[0]   ),
+    .b            ( denum_pipe   ),
     .vld          ( s_tvalid_reg    ),
     
     .quo          ( div_num1        ),
@@ -230,7 +230,7 @@ divfunc
     .rst          ( ~arstn          ),
     
     .a            ( num2            ),
-    .b            ( denum_pipe[0]   ),
+    .b            ( denum_pipe  ),
     .vld          ( s_tvalid_reg    ),
     
     .quo          ( div_num2        ),
@@ -248,7 +248,7 @@ divfunc
     .rst          ( ~arstn          ),
     
     .a            ( num3            ),
-    .b            ( denum_pipe[0]   ),
+    .b            ( denum_pipe   ),
     .vld          ( s_tvalid_reg    ),
     
     .quo          ( div_num3        ),
